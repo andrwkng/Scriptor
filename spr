@@ -3,13 +3,36 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.1.0"
+VERSION="0.2.0"
 
 # FUNCTIONS
 # handle errors
 throw_error(){
     echo "'$1' command not recognised."
     --help
+}
+
+# remove collection and associated scripts
+delete(){
+    if [ -z "$1" ]
+    then
+        echo "spr delete: missig operand"
+        --help
+    else
+        read -p "Are you sure you want to delete '$1' collection? (Y/N)" -n 1 -r
+        echo    # (optional) move to a new line
+        if [[ ! $REPLY =~ ^[Yy]$ ]]
+        then
+            echo "delete aborted"
+            exit 1
+        fi
+        echo "Deleting..."
+        # delete packag directory
+        rm -r $COLLECTION_DIR/$1/
+        # delete main package file
+        rm $COLLECTION_DIR/$1.sh
+        echo "Completed!"
+    fi
 }
 
 # show welcome message if no parmeters are provided
@@ -43,7 +66,12 @@ else
         fi
     elif [ -f $COLLECTION_DIR/$1.sh 2> $LOG_FILE ]
     then
+        if [ $2 == '--delete' ]
+        then
+            --delete $1 $3
+        else
             $2 $1 $3 2> $LOG_FILE || throw_error $2
+        fi
     else
         echo "spr: '$1' is not a valid command."
         --help
