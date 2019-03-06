@@ -1,0 +1,51 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+COLLECTION_DIR=$BASE_DIR/collections
+LOG_FILE=$BASE_DIR/logs/main
+VERSION="0.1.0"
+
+# FUNCTIONS
+# handle errors
+throw_error(){
+    echo "'$1' command not recognised."
+    --help
+}
+
+# show welcome message if no parmeters are provided
+if [ -z "$1" ]
+then
+    echo ""
+    echo "|##################################################################|"
+    echo "|                                                                  |"
+    echo "| Welcome to Scriptor!                                             |"
+    echo "| A simple shell script manager                                     |"
+    echo "|                                                                  |"
+    echo "|##################################################################|"
+    echo -e "\n"
+    # include help menu
+    --help
+else
+    # check validity of first parameter
+    if $1 &> $LOG_FILE
+    then
+        # check if 2nd parameter has been provided
+        if [ ! -z $2 ]
+        then
+            $1 $2 || throw_error $2
+        else
+            if $1 &> $LOG_FILE
+            then
+                $1
+            else
+                throw_error $1
+            fi
+        fi
+    elif [ -f $COLLECTION_DIR/$1.sh 2> $LOG_FILE ]
+    then
+            $2 $1 $3 2> $LOG_FILE || throw_error $2
+    else
+        echo "spr: '$1' is not a valid command."
+        --help
+    fi
+fi
