@@ -3,13 +3,40 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.2.0"
+VERSION="0.3.0"
 
 # FUNCTIONS
 # handle errors
 throw_error(){
     echo "'$1' command not recognised."
     --help
+}
+
+# create new collection
+create(){
+    if [ -z "$1" ]
+    then
+        echo "spr create: missing operand"
+        --help
+    else
+        name=$1
+        content="
+        # INTRO
+        \n
+        echo \"Welcome to $name!\"
+        "
+
+        if ! mkdir $COLLECTION_DIR/$name/ &> $LOG_FILE
+        then
+            # create directory for sub-scripts
+            echo "Collection does not exist!"
+        else
+            # create file for package with content
+            file="$COLLECTION_DIR/$name.sh"
+            echo -e $content >> $file
+            echo "'$name' was added"
+        fi
+    fi
 }
 
 # remove collection and associated scripts
