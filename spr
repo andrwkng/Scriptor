@@ -3,7 +3,7 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.4.0"
+VERSION="0.5.0"
 
 # FUNCTIONS
 # handle errors
@@ -70,6 +70,29 @@ delete(){
 
 -v(){
     --version
+}
+
+# show help message
+--help(){
+    echo ""
+    echo "usage: spr [--help] [--list] [--version]"
+    echo ""
+    echo "These are the commands to help you get things done with scriptor:"
+    echo ""
+    echo "spr --list                                          Prints a list of all collections"
+    echo "spr --version                                       Prints the version"
+    echo "spr --help                                          Prints a help message"
+    ## Manage Collections
+    echo "spr create [<collection-name>]                      Creates a new collection"
+    echo "spr delete [<collection-name>]                      Deletes a collection"
+    ## Manage Scripts
+    echo "spr [<collection-name>]                             Runs main collection script"
+    echo "spr [<collection-name>] --list                      Generates a list of scripts in a collection"
+    echo "spr [<collection-name>] --add [<script-name>]       Adds a new script to a collection"
+    echo "spr [<collection-name>] --edit [<script-name>]      Opens script from a collection in an editor"
+    echo "spr [<collection-name>] --run [<script-name>]       Runs a script from a collection"
+    echo "spr [<collection-name>] --delete [<script-name>]    Deletes a script from a collection"
+    echo ""
 }
 
 # show welcome message if no parmeters are provided
