@@ -3,7 +3,7 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.3.0"
+VERSION="0.4.0"
 
 # FUNCTIONS
 # handle errors
@@ -60,6 +60,16 @@ delete(){
         rm $COLLECTION_DIR/$1.sh
         echo "Completed!"
     fi
+}
+
+# FLAGS
+# check version number
+--version(){
+    echo "Scriptor v$VERSION"
+}
+
+-v(){
+    --version
 }
 
 # show welcome message if no parmeters are provided
