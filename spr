@@ -3,7 +3,7 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.7.0"
+VERSION="0.9.0"
 
 # FUNCTIONS
 # handle errors
@@ -133,6 +133,29 @@ delete(){
         # delete file
         rm $COLLECTION_DIR/$1/$2.sh
         echo "Completed!"
+    fi
+}
+
+# adds script to collection
+--add(){
+    if [ -z "$2" ]
+    then
+        echo "fatal: You must specify a name for the script."
+        --help
+    else
+        --edit $1 $2
+    fi
+}
+
+# edits existing script
+--edit(){
+    if [ -z "$2" ]
+    then
+        echo "fatal: You must specify the name for the script."
+        --help
+    else
+        echo "Opening '$2.sh' in editor..."
+        nano $COLLECTION_DIR/$1/$2.sh
     fi
 }
 
