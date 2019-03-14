@@ -3,7 +3,7 @@
 BASE_DIR=$(dirname "$0")
 COLLECTION_DIR=$BASE_DIR/collections
 LOG_FILE=$BASE_DIR/logs/main
-VERSION="0.9.0"
+VERSION="0.10.0"
 
 # FUNCTIONS
 # handle errors
@@ -157,6 +157,21 @@ delete(){
         echo "Opening '$2.sh' in editor..."
         nano $COLLECTION_DIR/$1/$2.sh
     fi
+}
+
+# executes script
+--run(){
+    if [ -z "$2" ]
+    then
+        echo "fatal: You must specify the name for the script."
+        --help
+    else
+        echo "Executing script '$2.sh' ..."
+        $COLLECTION_DIR/$1/$2.sh
+    fi
+}
+-r(){
+    --run $1 $2
 }
 
 # show welcome message if no parmeters are provided
