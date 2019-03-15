@@ -1,0 +1,14 @@
+#!/bin/bash
+
+chmod u+x spr
+if [ -f ~/.bashrc ]
+then
+    echo 'export PATH=$PATH":$HOME/scriptor"' >> ~/.bashrc
+elif [ -f ~/.profile ]
+then
+    echo 'export PATH=$PATH":$HOME/scriptor"' >> ~/.profile
+else
+    export PATH=$PATH:~/bin
+fi
+
+spr
