@@ -1,7 +1,5 @@
 # Scriptor
-=========
-
-A simple shell script manager.
+Scriptor is a simple shell script manager made as a fun project while learning the Linux shell terminal.
 
 ## Installation
 ### Linux
