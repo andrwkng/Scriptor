@@ -1,10 +1,10 @@
-Scriptor
+# Scriptor
 =========
 
 A simple shell script manager.
 
-# Installation
-## Linux
+## Installation
+### Linux
 ~~~~
 cd scriptor/
 chmod +x INSTALL
